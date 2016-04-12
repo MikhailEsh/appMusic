@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile files('E:/Programming/Android/musicApp/libs/library-1.0.19.jar')
     compile files('E:/Programming/Android/musicApp/libs/library-1.0.18.jar')
+    compile files('libs/library-1.0.18.jar')
 }
