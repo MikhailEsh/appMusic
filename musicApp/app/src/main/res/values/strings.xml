@@ -1,0 +1,27 @@
+<resources>
+    <integer name="sizeOfListView">10</integer>
+    <string name="app_name">appMusic</string>
+    <string name="toolbar_title_main">Исполнители</string>
+    <string name="icon_description">Иконка группы</string>
+    <string name="group_imageView_icon">groupIcon</string>
+    <string name="defaultValueParametr"> </string>
+    <string name="toast_errorDownload">Не удалось загрузить данные</string>
+    <string name="common_labelGroup_id">id</string>
+    <string name="common_labelGroup_name">name</string>
+    <string name="common_labelGroup_description">description</string>
+    <string name="common_labelGroup_tracks">tracks</string>
+    <string name="common_labelGroup_albums">albums</string>
+    <string name="common_labelGroup_link">link</string>
+    <string name="common_labelGroup_genresArray">genres</string>
+    <string name="common_labelGroup_cover">cover</string>
+    <string name="common_labelGroup_linkSmallImage">small</string>
+    <string name="common_labelGroup_linkBigImage">big</string>
+    <string name="list_item_TextView_styleMusic">Здесь мог быть стиль музыки</string>
+    <string name="list_item_textView_countAlbum">альбомов,</string>
+    <string name="list_item_textView_countSing">песен</string>
+    <string name="item_textView_nameGroup">Название группы</string>
+    <string name="process_dialog_loading">Loading.....</string>
+    <string name="log_tag_error">ERROR</string>
+    <string name="log_tag_info">INFO</string>
+    <string name="url">http://cache-default01e.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json</string>
+</resources>

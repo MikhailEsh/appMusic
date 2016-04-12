@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:baselineAligned="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/image_item_relative"
+        android:layout_weight="4">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/item_networkImageView_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/description_item_relative"
+        android:gravity="left"
+        android:layout_weight="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/item_textView_nameGroup"
+            android:id="@+id/item_textView_nameGroup"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:ellipsize="marquee" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/list_item_TextView_styleMusic"
+            android:id="@+id/list_item_TextView_styleMusic"
+            android:layout_below="@+id/item_textView_nameGroup"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/list_item_textView_countAlbum"
+            android:id="@+id/list_item_textView_countAlbum"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/list_item_textView_countSing"
+            android:id="@+id/list_item_textView_countSing"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/list_item_textView_countAlbum"
+            android:layout_marginLeft="20dp" />
+
+    </RelativeLayout>
+</LinearLayout>
