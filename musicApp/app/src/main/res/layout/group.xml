@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/group_textView_Description"
-            android:text="@string/defaultValueParametr" />
+            android:text="@string/defaultValueParametr"
+            android:scrollbars = "vertical"/>
     </RelativeLayout>
 
 
