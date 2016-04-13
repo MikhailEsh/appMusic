@@ -13,13 +13,13 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.main.hubluzar.musicapp.Adapter.AdapterListGroups;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +58,17 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     private RequestQueue sendRequest()
     {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonReq = createJsonObjectRequest();
-        jsonReq.setRetryPolicy(new DefaultRetryPolicy(5000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(jsonReq);
+        CachingJsonArrayRequest jsonReq;
+        try {
+            jsonReq = createJsonObjectRequest();
+            jsonReq.setRetryPolicy(new DefaultRetryPolicy(5000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            requestQueue.add(jsonReq);
+        } catch (JSONException e)
+        {
+
+        }
         return requestQueue;
     }
 
@@ -73,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         PD.setCancelable(false);
     }
 
-    private JsonArrayRequest createJsonObjectRequest()
+    private CachingJsonArrayRequest createJsonObjectRequest() throws JSONException
     {
         PD.show();
-        JsonArrayRequest reqArray = new JsonArrayRequest(getString(R.string.url),
+        CachingJsonArrayRequest reqArray = new CachingJsonArrayRequest(getString(R.string.url),
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
                 errorToast.show();
             }
         });
+        reqArray.setShouldCache(Boolean.TRUE);
         return reqArray;
     }
 
