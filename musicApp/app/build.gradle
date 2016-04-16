@@ -24,4 +24,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile files('libs/library-1.0.18.jar')
+    compile 'com.commit451:PhotoView:1.2.5'
 }

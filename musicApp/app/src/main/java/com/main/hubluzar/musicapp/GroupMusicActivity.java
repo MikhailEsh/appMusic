@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class GroupMusicActivity extends AppCompatActivity {
 
@@ -26,6 +26,7 @@ public class GroupMusicActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         Intent intent = getIntent();
         setContentActivityText(intent);
@@ -58,6 +59,8 @@ public class GroupMusicActivity extends AppCompatActivity {
         NetworkImageView iconNetworkImageView = (NetworkImageView) findViewById(R.id.group_networkImageView_icon);
         String linkBigImage = intent.getStringExtra(getString(R.string.common_labelGroup_linkBigImage));
         iconNetworkImageView.setImageUrl(linkBigImage, imageLoader);
+        PhotoViewAttacher mAttacher = new PhotoViewAttacher(iconNetworkImageView);
+        mAttacher.setZoomable(true);
     }
 
     private ImageLoader createImageLoader()
