@@ -1,5 +1,6 @@
 <resources>
     <integer name="sizeOfListView">10</integer>
+    <integer name="timeWaitRequest">5000</integer>
     <string name="app_name">appMusic</string>
     <string name="toolbar_title_main">Исполнители</string>
     <string name="icon_description">Иконка группы</string>
@@ -23,5 +24,7 @@
     <string name="process_dialog_loading">Loading.....</string>
     <string name="log_tag_error">ERROR</string>
     <string name="log_tag_info">INFO</string>
+    <string name="log_unit_test_info">UNIT_TEST_INFO</string>
+    <string name="log_unit_test_error">UNIT_TEST_ERROR</string>
     <string name="url">http://cache-default01e.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json</string>
 </resources>
