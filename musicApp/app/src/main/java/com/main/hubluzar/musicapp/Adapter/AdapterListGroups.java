@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp.Adapter;
+package com.main.hubluzar.musicapp.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,18 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.main.hubluzar.musicapp.ItemMusicGroup;
-import com.main.hubluzar.musicapp.LruBitmapCache;
+import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
-import com.main.hubluzar.musicapp.ReaderJSONMusicGroup;
-
-import org.json.JSONArray;
+import com.main.hubluzar.musicapp.loader.LoaderData;
+import com.main.hubluzar.musicapp.loader.ReaderJSONDate;
 
 import java.util.List;
 
@@ -28,33 +23,30 @@ public class AdapterListGroups extends BaseAdapter {
 
     private List<ItemMusicGroup> listItemsMusicGroup;
     private LayoutInflater layoutInflater;
-    private ReaderJSONMusicGroup readerJSONMusicGroup;
+    private LoaderData loaderData;
 
-    final private ImageLoader imageLoader;
     final private String space = " ";
     final private String emptyString = "";
-    final private int delta = 5;
+    final private int delta;
 
-    public AdapterListGroups(Context context, List<ItemMusicGroup> listItemsMusicGroup, RequestQueue requestQueue, ReaderJSONMusicGroup readerJSONMusicGroup) {
+    public AdapterListGroups(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData) {
         this.listItemsMusicGroup = listItemsMusicGroup;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.imageLoader = new ImageLoader(requestQueue,
-                new LruBitmapCache(context));
-        this.readerJSONMusicGroup = readerJSONMusicGroup;
-
+        this.loaderData = loaderData;
+        this.delta = context.getResources().getInteger(R.integer.sizeOfListView) / 2;
     }
 
     @Override
     public int getCount() {
-        if ( this.listItemsMusicGroup.isEmpty() ) readerJSONMusicGroup.extentionListItemsMusicGroup(listItemsMusicGroup, 0);
+        if ( this.listItemsMusicGroup.isEmpty() ) loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, 0);
         return this.listItemsMusicGroup.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (position >= listItemsMusicGroup.size() - delta && position < readerJSONMusicGroup.getSizeJSONArray())
+        if (position >= listItemsMusicGroup.size() - delta && position < loaderData.getSizeJSONArray())
         {
-            readerJSONMusicGroup.extentionListItemsMusicGroup(listItemsMusicGroup, position);
+            loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position);
         }
         return this.listItemsMusicGroup.get(position);
     }
@@ -80,7 +72,7 @@ public class AdapterListGroups extends BaseAdapter {
     {
         if ( currentItemMusicGroup.getLinkSmallImage() != null) {
             NetworkImageView networkImageView = (NetworkImageView) view.findViewById(R.id.item_networkImageView_icon);
-            networkImageView.setImageUrl(currentItemMusicGroup.getLinkSmallImage(), imageLoader);
+            networkImageView.setImageUrl(currentItemMusicGroup.getLinkSmallImage(), loaderData.getImageLoader());
         }
     }
     private void setTextContentItem(View view, ItemMusicGroup currentItemMusicGroup)

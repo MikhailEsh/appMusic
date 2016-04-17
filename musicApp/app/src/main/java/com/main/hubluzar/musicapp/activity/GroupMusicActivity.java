@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp;
+package com.main.hubluzar.musicapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.main.hubluzar.musicapp.R;
+import com.main.hubluzar.musicapp.loader.LruBitmapCache;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 

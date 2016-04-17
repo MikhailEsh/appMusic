@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp;
+package com.main.hubluzar.musicapp.base;
 
 /**
  * Created by sbt-eshtokin-ml on 27.03.2016.

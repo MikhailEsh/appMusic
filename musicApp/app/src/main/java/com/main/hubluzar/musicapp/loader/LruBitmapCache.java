@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp;
+package com.main.hubluzar.musicapp.loader;
 
 /**
  * Created by Агент on 10.04.2016.

@@ -1,7 +1,10 @@
-package com.main.hubluzar.musicapp;
+package com.main.hubluzar.musicapp.loader;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.main.hubluzar.musicapp.base.ItemMusicGroup;
+import com.main.hubluzar.musicapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,20 +15,18 @@ import java.util.List;
 /**
  * Created by Агент on 06.04.2016.
  */
-public class ReaderJSONMusicGroup {
+public class ReaderJSONDate {
 
-    final private Integer sizeBatchGroup = 10;
+    final private Integer sizeOfListView;
     private JSONArray jSONArray;
     private Context context;
 
-    public ReaderJSONMusicGroup(JSONArray jSONArray, Context context) {
-        this.jSONArray = jSONArray;
-        this.context = context;
-    }
 
-    public ReaderJSONMusicGroup(Context context) {
+
+    public ReaderJSONDate(Context context) {
         this.jSONArray = null;
         this.context = context;
+        this.sizeOfListView = context.getResources().getInteger(R.integer.sizeOfListView);
     }
 
     public int getSizeJSONArray() {
@@ -37,9 +38,16 @@ public class ReaderJSONMusicGroup {
         this.jSONArray = jSONArray;
     }
 
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
+        if (this.jSONArray == null ) return;
+        readJSONMusicGroup(listItemsMusicGroup, position);
+    }
+
+
+
     private List<ItemMusicGroup> readJSONMusicGroup(List<ItemMusicGroup> listItemMusicGroup, int position)
     {
-        for (int i = position; i < position + sizeBatchGroup; i++) {
+        for (int i = position; i < position + sizeOfListView; i++) {
             try {
                 JSONObject joItemGroup = jSONArray.getJSONObject(i);
                 ItemMusicGroup currentMusicGroup = readItemMusicGroup(joItemGroup);
@@ -81,6 +89,8 @@ public class ReaderJSONMusicGroup {
         }
         return null;
     }
+
+
 
     private String readNameMusicGroup(JSONObject joItemGroup) throws JSONException
     {
@@ -130,8 +140,5 @@ public class ReaderJSONMusicGroup {
         }
     }
 
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
-        if (this.jSONArray == null ) return;
-        readJSONMusicGroup(listItemsMusicGroup, position);
-    }
+
 }

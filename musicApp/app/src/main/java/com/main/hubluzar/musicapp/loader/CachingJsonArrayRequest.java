@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp;
+package com.main.hubluzar.musicapp.loader;
 
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
@@ -7,12 +7,10 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.Response.Listener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
