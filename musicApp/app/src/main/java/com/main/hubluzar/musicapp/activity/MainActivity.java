@@ -3,29 +3,22 @@ package com.main.hubluzar.musicapp.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.main.hubluzar.musicapp.adapter.AdapterListGroups;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
-import com.main.hubluzar.musicapp.loader.CachingJsonArrayRequest;
-import com.main.hubluzar.musicapp.loader.LoaderData;
-import com.main.hubluzar.musicapp.loader.ReaderJSONDate;
+import com.main.hubluzar.musicapp.base.LoaderData;
+import com.main.hubluzar.musicapp.base.ReaderJSONData;
+import com.main.hubluzar.musicapp.loader.LoaderDataImpl;
+import com.main.hubluzar.musicapp.loader.ReaderJSONDataImpl;
 
 import android.app.ProgressDialog;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -34,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     private ListView listView;
     private AdapterListGroups adapter;
-    private ReaderJSONDate readerJSONDate;
+    private ReaderJSONData readerJSONDate;
     private ProgressDialog progressDialog;
     LoaderData loaderData;
 
@@ -44,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         setContentView(R.layout.main);
         settingViewElement();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        readerJSONDate = new ReaderJSONDate(MainActivity.this);
-        loaderData = new LoaderData(progressDialog, MainActivity.this, readerJSONDate, requestQueue);
+        readerJSONDate = new ReaderJSONDataImpl(MainActivity.this);
+        loaderData = new LoaderDataImpl(progressDialog, MainActivity.this, readerJSONDate, requestQueue);
         loaderData.sendRequest(requestQueue);
         adapter = new AdapterListGroups(this, new ArrayList<ItemMusicGroup>(), loaderData);
         listView.setAdapter(adapter);

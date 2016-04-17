@@ -13,6 +13,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.main.hubluzar.musicapp.R;
 import com.main.hubluzar.musicapp.activity.MainActivity;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
+import com.main.hubluzar.musicapp.base.LoaderData;
+import com.main.hubluzar.musicapp.base.ReaderJSONData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,22 +24,23 @@ import java.util.List;
 /**
  * Created by Агент on 17.04.2016.
  */
-public class LoaderData {
+public class LoaderDataImpl implements LoaderData {
 
     private ProgressDialog progressDialog;
     private Context context;
     private MainActivity mainActivity;
-    private ReaderJSONDate readerJSONDate;
+    private ReaderJSONData readerJSONDate;
     private ImageLoader imageLoader;
-    final private int timeWaitRequest = 5000;
+    final private int timeWaitRequest;
 
-    public LoaderData(ProgressDialog progressDialog, MainActivity mainActivity, ReaderJSONDate readerJSONDate, RequestQueue requestQueue) {
+    public LoaderDataImpl(ProgressDialog progressDialog, MainActivity mainActivity, ReaderJSONData readerJSONDate, RequestQueue requestQueue) {
         this.progressDialog = progressDialog;
         this.context = mainActivity.getBaseContext();
         this.mainActivity = mainActivity;
         this.readerJSONDate = readerJSONDate;
         this.imageLoader = new ImageLoader(requestQueue,
                 new LruBitmapCache(context));
+        this.timeWaitRequest = context.getResources().getInteger(R.integer.timeWaitRequest);
     }
 
     public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
@@ -62,11 +65,12 @@ public class LoaderData {
             requestQueue.add(jsonReq);
         } catch (JSONException e)
         {
-
+            Toast errorToast = Toast.makeText(context, context.getString(R.string.toast_errorDownload), Toast.LENGTH_LONG);
+            errorToast.show();
         }
     }
 
-    public CachingJsonArrayRequest createJsonObjectRequest() throws JSONException
+    private CachingJsonArrayRequest createJsonObjectRequest() throws JSONException
     {
         progressDialog.show();
         CachingJsonArrayRequest reqArray = new CachingJsonArrayRequest(context.getString(R.string.url),
@@ -74,7 +78,7 @@ public class LoaderData {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(context.getString(R.string.log_tag_info), "Ответ получен");
-                        readerJSONDate.setjSONArray(response);
+                        readerJSONDate.setJSONArray(response);
                         mainActivity.notifyAdapterData();
                         progressDialog.dismiss();
                     }

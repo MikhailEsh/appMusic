@@ -11,8 +11,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
-import com.main.hubluzar.musicapp.loader.LoaderData;
-import com.main.hubluzar.musicapp.loader.ReaderJSONDate;
+import com.main.hubluzar.musicapp.base.LoaderData;
 
 import java.util.List;
 

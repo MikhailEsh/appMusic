@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
+import com.main.hubluzar.musicapp.base.ReaderJSONData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Агент on 06.04.2016.
  */
-public class ReaderJSONDate {
+public class ReaderJSONDataImpl implements ReaderJSONData {
 
     final private Integer sizeOfListView;
     private JSONArray jSONArray;
@@ -23,18 +24,18 @@ public class ReaderJSONDate {
 
 
 
-    public ReaderJSONDate(Context context) {
+    public ReaderJSONDataImpl(Context context) {
         this.jSONArray = null;
         this.context = context;
         this.sizeOfListView = context.getResources().getInteger(R.integer.sizeOfListView);
     }
 
-    public int getSizeJSONArray() {
+    public Integer getSizeJSONArray() {
         if (jSONArray == null) return 0;
         return this.jSONArray.length();
     }
 
-    public void setjSONArray(JSONArray jSONArray) {
+    public void setJSONArray(JSONArray jSONArray) {
         this.jSONArray = jSONArray;
     }
 
