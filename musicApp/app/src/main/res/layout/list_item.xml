@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:padding="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,7 +45,8 @@
             android:id="@+id/list_item_TextView_styleMusic"
             android:layout_below="@+id/item_textView_nameGroup"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="@color/grayText"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +55,8 @@
             android:id="@+id/list_item_textView_countAlbum"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/grayText"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -64,7 +67,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/list_item_textView_countAlbum"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/grayText"/>
 
     </RelativeLayout>
 </LinearLayout>
