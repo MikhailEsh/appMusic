@@ -17,8 +17,8 @@
     <string name="common_labelGroup_cover">cover</string>
     <string name="common_labelGroup_linkSmallImage">small</string>
     <string name="common_labelGroup_linkBigImage">big</string>
-    <string name="list_item_TextView_styleMusic">Здесь мог быть стиль музыки</string>
-    <string name="list_item_textView_countAlbum">альбомов,</string>
+    <string name="list_item_TextView_genres">Здесь мог быть стиль музыки</string>
+    <string name="list_item_textView_countAlbum">альбомов</string>
     <string name="list_item_textView_countSing">песен</string>
     <string name="item_textView_nameGroup">Название группы</string>
     <string name="process_dialog_loading">Loading.....</string>
@@ -27,4 +27,5 @@
     <string name="log_unit_test_info">UNIT_TEST_INFO</string>
     <string name="log_unit_test_error">UNIT_TEST_ERROR</string>
     <string name="url">http://cache-default01e.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json</string>
+    <string name="group_textView_biography">Биография</string>
 </resources>
