@@ -47,6 +47,7 @@ public class ReaderJSONDataImpl implements ReaderJSONData  {
 
 
 
+    //Парсим один jSONArray в зависимости от настроенного размера подгружаеммых данных
     private List<ItemMusicGroup> readJSONMusicGroup(List<ItemMusicGroup> listItemMusicGroup, int position)
     {
         for (int i = position; i < position + sizeOfListView; i++) {
