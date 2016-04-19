@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Агент on 06.04.2016.
  */
-public class ReaderJSONDataImpl implements ReaderJSONData {
+public class ReaderJSONDataImpl implements ReaderJSONData  {
 
     final private Integer sizeOfListView;
     private JSONArray jSONArray;
@@ -39,6 +39,7 @@ public class ReaderJSONDataImpl implements ReaderJSONData {
         this.jSONArray = jSONArray;
     }
 
+    //Функция подгружает данные в список( сделано для того чтобы не парстиь весь Json подгружать данные по мере надобности
     public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
         if (this.jSONArray == null ) return;
         readJSONMusicGroup(listItemsMusicGroup, position);
@@ -62,6 +63,7 @@ public class ReaderJSONDataImpl implements ReaderJSONData {
         return null;
     }
 
+    //Парсим один JSONObject, если нет имени группы, то объект не создается, остальные параметры в случае отсутвия заполняются по дефолту
     private ItemMusicGroup readItemMusicGroup(JSONObject joItemGroup)
     {
         try {

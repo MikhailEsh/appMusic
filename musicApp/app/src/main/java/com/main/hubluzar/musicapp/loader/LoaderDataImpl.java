@@ -43,6 +43,7 @@ public class LoaderDataImpl implements LoaderData {
         this.timeWaitRequest = context.getResources().getInteger(R.integer.timeWaitRequest);
     }
 
+    //Функция подгружает данные в список( сделано для того чтобы не парстиь весь Json подгружать данные по мере надобности
     public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
         if (readerJSONDate == null ) return;
         readerJSONDate.extentionListItemsMusicGroup(listItemsMusicGroup, position);
@@ -54,6 +55,8 @@ public class LoaderDataImpl implements LoaderData {
         return readerJSONDate.getSizeJSONArray();
     }
 
+
+    //Создаем запрос выставляем политику посылки сообщений
     public void sendRequest(RequestQueue requestQueue)
     {
         CachingJsonArrayRequest jsonReq;
@@ -65,11 +68,10 @@ public class LoaderDataImpl implements LoaderData {
             requestQueue.add(jsonReq);
         } catch (JSONException e)
         {
-            Toast errorToast = Toast.makeText(context, context.getString(R.string.toast_errorDownload), Toast.LENGTH_LONG);
-            errorToast.show();
+            showErrorToast();
         }
     }
-
+//создаем объект запролса, CachingJsonArrayRequest - расширяет JsonArrayRequest, меняет политику кэширования
     private CachingJsonArrayRequest createJsonObjectRequest() throws JSONException
     {
         progressDialog.show();
@@ -87,12 +89,17 @@ public class LoaderDataImpl implements LoaderData {
             public void onErrorResponse(VolleyError error) {
                 Log.d(context.getString(R.string.log_tag_error), this.getClass().getSimpleName());
                 progressDialog.dismiss();
-                Toast errorToast = Toast.makeText(context, context.getString(R.string.toast_errorDownload), Toast.LENGTH_LONG);
-                errorToast.show();
+                showErrorToast();
             }
         });
         reqArray.setShouldCache(Boolean.TRUE);
         return reqArray;
+    }
+
+    private void showErrorToast()
+    {
+        Toast errorToast = Toast.makeText(context, context.getString(R.string.toast_errorDownload), Toast.LENGTH_LONG);
+        errorToast.show();
     }
 
     public ImageLoader getImageLoader ()

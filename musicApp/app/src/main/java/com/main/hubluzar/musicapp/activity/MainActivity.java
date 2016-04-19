@@ -36,8 +36,11 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         settingViewElement();
+        //Создаем общие объекты для работы приложения
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        //readerJSONDate Объект парсит json
         readerJSONDate = new ReaderJSONDataImpl(MainActivity.this);
+        //loaderData Объект занимается закгрузкой данных, обработкой
         loaderData = new LoaderDataImpl(progressDialog, MainActivity.this, readerJSONDate, requestQueue);
         loaderData.sendRequest(requestQueue);
         adapter = new AdapterListGroups(this, new ArrayList<ItemMusicGroup>(), loaderData);
@@ -67,14 +70,17 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     }
 
 
+    //обработка нажатия на view в ListView, вызываем GroupMusicActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, GroupMusicActivity.class);
         ItemMusicGroup currentGroupActivity = adapter.getItemMusicGroup(position);
         intent.putExtra(getString(R.string.common_labelGroup_description), currentGroupActivity.getDescription());
+        //Передаем уже готовые блоки текстов для track, genres, albums
         intent.putExtra(getString(R.string.common_labelGroup_tracks), currentGroupActivity.getTracksString());
         intent.putExtra(getString(R.string.common_labelGroup_albums), currentGroupActivity.getAlbumsString());
         intent.putExtra(getString(R.string.common_labelGroup_genresArray), currentGroupActivity.getGenresString());
+
         intent.putExtra(getString(R.string.common_labelGroup_link), currentGroupActivity.getLink());
         intent.putExtra(getString(R.string.common_labelGroup_name), currentGroupActivity.getName());
         intent.putExtra(getString(R.string.common_labelGroup_linkBigImage), currentGroupActivity.getLinkBigImage());

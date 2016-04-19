@@ -29,21 +29,20 @@ public class AdapterListGroups extends BaseAdapter {
         this.listItemsMusicGroup = listItemsMusicGroup;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.loaderData = loaderData;
-        this.heightForLoad = context.getResources().getInteger(R.integer.sizeOfListView) / 2;
+        this.heightForLoad = context.getResources().getInteger(R.integer.sizeOfListView) / 2;//Параметр который определяет когда нужно подгружать данные в список
     }
 
     @Override
     public int getCount() {
-        if ( this.listItemsMusicGroup.isEmpty() ) loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, 0);
+        if ( this.listItemsMusicGroup.isEmpty() ) loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, 0);//Если список пустой, подгружаем первые данне
         return this.listItemsMusicGroup.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (position >= listItemsMusicGroup.size() - heightForLoad && position < loaderData.getSizeJSONArray())
-        {
+        //При прокрутке смотрим нужно ли увечичвать список
+        if (checkNeedExtention(position))
             loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position);
-        }
         return this.listItemsMusicGroup.get(position);
     }
 
@@ -64,6 +63,7 @@ public class AdapterListGroups extends BaseAdapter {
         return view;
     }
 
+    //Заполняем миниатюры для картинок
     private void setImageContentItem(View view, ItemMusicGroup currentItemMusicGroup)
     {
         if ( currentItemMusicGroup.getLinkSmallImage() != null) {
@@ -71,6 +71,7 @@ public class AdapterListGroups extends BaseAdapter {
             networkImageView.setImageUrl(currentItemMusicGroup.getLinkSmallImage(), loaderData.getImageLoader());
         }
     }
+    //Заполняем данные в TextView
     private void setTextContentItem(View view, ItemMusicGroup currentItemMusicGroup)
     {
         try {
@@ -101,5 +102,14 @@ public class AdapterListGroups extends BaseAdapter {
 
     public ItemMusicGroup getItemMusicGroup(int position) {
         return (ItemMusicGroup) getItem(position);
+    }
+
+    private boolean checkNeedExtention(int position)
+    {
+        if (position >= listItemsMusicGroup.size() - heightForLoad && position < loaderData.getSizeJSONArray())
+        {
+            return true;
+        } else return false;
+
     }
 }

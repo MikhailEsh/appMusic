@@ -18,7 +18,14 @@ import java.util.Map;
 /**
  * Created by Агент on 13.04.2016.
  */
+
+//Выставляем параметры кэширования
 public class CachingJsonArrayRequest extends JsonArrayRequest {
+
+    //static private final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+    static private final long cacheHitButRefreshed = 0; // in 0 minutes cache will be hit, but also refreshed on background
+    static private final long cacheExpired = 24 * 60 * 60 * 1000;   // in 24 hours this cache entry expires completely
+
     public CachingJsonArrayRequest(String url,
                          Listener<JSONArray> listener, ErrorListener errorListener)
             throws JSONException {
@@ -27,6 +34,7 @@ public class CachingJsonArrayRequest extends JsonArrayRequest {
         this.setShouldCache(Boolean.TRUE);
     }
 
+    //Переопределяем обработку ответа, для этого подменяем parseCacheHeaders на parseIgnoreCacheHeaders
     @Override
     protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
         try {
@@ -39,6 +47,8 @@ public class CachingJsonArrayRequest extends JsonArrayRequest {
         }
     }
 
+    //parseIgnoreCacheHeaders - полностю перекладываем ответ выставляя нужные нам   entry.softTtl = softExpire; entry.ttl
+    //которые отвечают за время жизни КЭШа
     public static Cache.Entry parseIgnoreCacheHeaders(NetworkResponse response) {
         long now = System.currentTimeMillis();
 
@@ -53,9 +63,6 @@ public class CachingJsonArrayRequest extends JsonArrayRequest {
         }
 
         serverEtag = headers.get("ETag");
-
-        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
-        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
         final long softExpire = now + cacheHitButRefreshed;
         final long ttl = now + cacheExpired;
 

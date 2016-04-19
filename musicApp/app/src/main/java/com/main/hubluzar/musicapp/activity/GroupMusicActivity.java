@@ -52,6 +52,7 @@ public class GroupMusicActivity extends AppCompatActivity {
     {
         getSupportActionBar().setTitle(intent.getStringExtra(getString(R.string.common_labelGroup_name)));
 
+        //Заполняем Description, выставляем выравнивание текста по ширине
         WebView descriptionWebView = (WebView) findViewById(R.id.group_webView_description);
         String htmlText = "<html><body style=\"text-align:justify\"> %s </body></html>";
         String descriptionString = intent.getStringExtra(getString(R.string.common_labelGroup_description));
@@ -59,6 +60,7 @@ public class GroupMusicActivity extends AppCompatActivity {
         descriptionWebView.setVerticalScrollBarEnabled(true);
         descriptionWebView.setHorizontalScrollBarEnabled(true);
 
+        //Заполняем остальные блоки TextView
         setTextView(R.id.group_textView_link, intent.getStringExtra(getString(R.string.common_labelGroup_link)));
         setTextView(R.id.group_textView_genres, intent.getStringExtra(getString(R.string.common_labelGroup_genresArray)));
         setTextView(R.id.group_textView_tracks, intent.getStringExtra(getString(R.string.common_labelGroup_tracks)));
@@ -73,6 +75,7 @@ public class GroupMusicActivity extends AppCompatActivity {
         nameGroup.setText(textContent);
     }
 
+    //Устанавливаем картинку, выставляем zoom эффект
     private void setContentActivityImage(ImageLoader imageLoader, Intent intent)
     {
         NetworkImageView iconNetworkImageView = (NetworkImageView) findViewById(R.id.group_networkImageView_icon);

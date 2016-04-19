@@ -31,6 +31,7 @@ public class ItemMusicGroup {
         return genres;
     }
 
+    //Функция возвращает склеенный набор "стилей pop rnb"
     public String getGenresString() {
         if (this.genres == null) return null;
         StringBuilder  genresBuilder = new StringBuilder();
@@ -52,6 +53,7 @@ public class ItemMusicGroup {
         return tracks;
     }
 
+    //Возвращает склеенное поле количества треков
     public String getTracksString() {
         if (this.tracks == null ) return null;
         return this.tracks.toString() + space + context.getString(R.string.list_item_textView_countSing);
@@ -62,6 +64,7 @@ public class ItemMusicGroup {
         return albums;
     }
 
+    //Возвращает склеенное поле количества альбомов
     public String getAlbumsString() {
         if (this.albums == null ) return null;
         return this.albums.toString() + space + context.getString(R.string.list_item_textView_countAlbum);

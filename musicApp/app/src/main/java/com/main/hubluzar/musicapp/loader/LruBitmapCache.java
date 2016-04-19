@@ -7,9 +7,10 @@ package com.main.hubluzar.musicapp.loader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.util.DisplayMetrics;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 
+
+//Выставляем размер КЭШа для картинок, используется в ImageLoder
 public class LruBitmapCache extends LruCache<String, Bitmap>
         implements ImageCache {
 
