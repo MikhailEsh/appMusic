@@ -41,8 +41,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="@string/list_item_TextView_styleMusic"
-            android:id="@+id/list_item_TextView_styleMusic"
+            android:text="@string/list_item_TextView_genres"
+            android:id="@+id/list_item_TextView_genres"
             android:layout_below="@+id/item_textView_nameGroup"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="20dp"
