@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -19,7 +21,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class GroupMusicActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,6 @@ public class GroupMusicActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         Intent intent = getIntent();
@@ -52,10 +52,27 @@ public class GroupMusicActivity extends AppCompatActivity {
     {
         getSupportActionBar().setTitle(intent.getStringExtra(getString(R.string.common_labelGroup_name)));
 
-        TextView descriptionGroup = (TextView) findViewById(R.id.group_textView_Description);
-        descriptionGroup.setMovementMethod(new ScrollingMovementMethod());
-        descriptionGroup.setText(intent.getStringExtra(getString(R.string.common_labelGroup_description)));
+        WebView descriptionWebView = (WebView) findViewById(R.id.group_webView_description);
+        String htmlText = "<html><body style=\"text-align:justify\"> %s </body></html>";
+        String descriptionString = intent.getStringExtra(getString(R.string.common_labelGroup_description));
+        descriptionWebView.loadDataWithBaseURL(null, String.format(htmlText, descriptionString), "text/html", "UTF-8", null);
+        descriptionWebView.setVerticalScrollBarEnabled(true);
+        descriptionWebView.setHorizontalScrollBarEnabled(true);
+
+        setTextView(R.id.group_textView_link, intent.getStringExtra(getString(R.string.common_labelGroup_link)));
+        setTextView(R.id.group_textView_genres, intent.getStringExtra(getString(R.string.common_labelGroup_genresArray)));
+        setTextView(R.id.group_textView_tracks, intent.getStringExtra(getString(R.string.common_labelGroup_tracks)));
+        setTextView(R.id.group_textView_albums, intent.getStringExtra(getString(R.string.common_labelGroup_albums)));
     }
+
+    private void setTextView( int resIdView, String textContent) {
+        TextView nameGroup = (TextView) findViewById(resIdView);
+        if ( textContent == null) {
+            textContent = getString(R.string.defaultValueParametr);
+        }
+        nameGroup.setText(textContent);
+    }
+
     private void setContentActivityImage(ImageLoader imageLoader, Intent intent)
     {
         NetworkImageView iconNetworkImageView = (NetworkImageView) findViewById(R.id.group_networkImageView_icon);

@@ -23,16 +23,13 @@ public class AdapterListGroups extends BaseAdapter {
     private List<ItemMusicGroup> listItemsMusicGroup;
     private LayoutInflater layoutInflater;
     private LoaderData loaderData;
-
-    final private String space = " ";
-    final private String emptyString = "";
-    final private int delta;
+    final private int heightForLoad;
 
     public AdapterListGroups(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData) {
         this.listItemsMusicGroup = listItemsMusicGroup;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.loaderData = loaderData;
-        this.delta = context.getResources().getInteger(R.integer.sizeOfListView) / 2;
+        this.heightForLoad = context.getResources().getInteger(R.integer.sizeOfListView) / 2;
     }
 
     @Override
@@ -43,7 +40,7 @@ public class AdapterListGroups extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if (position >= listItemsMusicGroup.size() - delta && position < loaderData.getSizeJSONArray())
+        if (position >= listItemsMusicGroup.size() - heightForLoad && position < loaderData.getSizeJSONArray())
         {
             loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position);
         }
@@ -78,15 +75,10 @@ public class AdapterListGroups extends BaseAdapter {
     {
         try {
 
-            setTextView(currentItemMusicGroup, view, R.id.item_textView_nameGroup, currentItemMusicGroup.getName(), emptyString);
-
-            String textSuffixCountAlbum = space + getStringResource(R.string.list_item_textView_countAlbum, view);
-            setTextView(currentItemMusicGroup, view, R.id.list_item_textView_countAlbum, String.valueOf(currentItemMusicGroup.getAlbums()), textSuffixCountAlbum);
-
-            String textSuffixCountSing = space + getStringResource(R.string.list_item_textView_countSing, view);
-            setTextView(currentItemMusicGroup, view, R.id.list_item_textView_countSing, String.valueOf(currentItemMusicGroup.getTracks()), textSuffixCountSing);
-
-            setTextGenre(currentItemMusicGroup, view);
+            setTextForTextView(view, R.id.item_textView_nameGroup, currentItemMusicGroup.getName());
+            setTextForTextView(view, R.id.list_item_textView_countAlbum, currentItemMusicGroup.getAlbumsString());
+            setTextForTextView(view, R.id.list_item_textView_countSing, currentItemMusicGroup.getTracksString());
+            setTextForTextView(view, R.id.list_item_TextView_genres, currentItemMusicGroup.getGenresString());
 
         } catch (Exception e) {
             Log.d(getStringResource(R.string.log_tag_error, view), this.getClass().getSimpleName() + view.toString());
@@ -94,24 +86,12 @@ public class AdapterListGroups extends BaseAdapter {
 
     }
 
-    private void setTextGenre(ItemMusicGroup currentItemMusicGroup, View view)
-    {
-        TextView genrer = (TextView) view.findViewById(R.id.list_item_TextView_styleMusic);
-        String genresString = emptyString;
-        String[] genresMas = currentItemMusicGroup.getGenres();
-        for( int i = 0 ; i < genresMas.length; i++ )
-        {
-            genresString = genresString + genresMas[i] + space;
-        }
-        genrer.setText(genresString);
-    }
-
-    private void setTextView(ItemMusicGroup currentItemMusicGroup, View view, int resIdVew, String textContent, String textSuffix) {
-        TextView nameGroup = (TextView) view.findViewById(resIdVew);
+    private void setTextForTextView( View view, int resIdView, String textContent) {
+        TextView nameGroup = (TextView) view.findViewById(resIdView);
         if ( textContent == null) {
             textContent = getStringResource(R.string.defaultValueParametr, view);
         }
-        nameGroup.setText(textContent + textSuffix);
+        nameGroup.setText(textContent);
     }
 
     private String getStringResource(int resourseId, View view)

@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         Intent intent = new Intent(this, GroupMusicActivity.class);
         ItemMusicGroup currentGroupActivity = adapter.getItemMusicGroup(position);
         intent.putExtra(getString(R.string.common_labelGroup_description), currentGroupActivity.getDescription());
+        intent.putExtra(getString(R.string.common_labelGroup_tracks), currentGroupActivity.getTracksString());
+        intent.putExtra(getString(R.string.common_labelGroup_albums), currentGroupActivity.getAlbumsString());
+        intent.putExtra(getString(R.string.common_labelGroup_genresArray), currentGroupActivity.getGenresString());
+        intent.putExtra(getString(R.string.common_labelGroup_link), currentGroupActivity.getLink());
         intent.putExtra(getString(R.string.common_labelGroup_name), currentGroupActivity.getName());
         intent.putExtra(getString(R.string.common_labelGroup_linkBigImage), currentGroupActivity.getLinkBigImage());
         startActivity(intent);

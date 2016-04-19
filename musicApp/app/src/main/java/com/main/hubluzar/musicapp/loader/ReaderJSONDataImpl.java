@@ -81,7 +81,7 @@ public class ReaderJSONDataImpl implements ReaderJSONData {
             } catch (JSONException e) {
             }
             ItemMusicGroup currentItemMusicGroup = new ItemMusicGroup(name, description, link,
-                    linkSmallImage, linkrBigImage, albums, tracks, id, genres );
+                    linkSmallImage, linkrBigImage, albums, tracks, id, genres, context );
             return  currentItemMusicGroup;
 
         } catch (JSONException e) {

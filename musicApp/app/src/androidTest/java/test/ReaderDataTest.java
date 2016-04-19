@@ -46,7 +46,7 @@ public class ReaderDataTest extends AndroidTestCase {
         String testDescription = "британский рэпер, являющийся выходцем из Индии. Родился в западном Лондоне, Англия. Выпустил три альбома Me Against Myself, My Own Way и All or Nothing.";
         String linkSmallImage = "http://avatars.yandex.net/get-music-content/db35e57a.p.100500/300x300";
         String linkBigImage = "http://avatars.yandex.net/get-music-content/db35e57a.p.100500/1000x1000";
-        ItemMusicGroup testItemMusicGroup = new ItemMusicGroup(name, testDescription, link, linkSmallImage, linkBigImage, albums, tracks, id, testGenres);
+        ItemMusicGroup testItemMusicGroup = new ItemMusicGroup(name, testDescription, link, linkSmallImage, linkBigImage, albums, tracks, id, testGenres, context);
         return testItemMusicGroup;
     }
 
