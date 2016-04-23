@@ -9,7 +9,7 @@ import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 /**
  * Created by Агент on 23.04.2016.
  */
-public class AdapterListGroupsTest implements AdapterListGroups {
+public class AdapterListGroupsTestSupport implements AdapterListGroups {
     @Override
     public int getCount() {
         return 0;

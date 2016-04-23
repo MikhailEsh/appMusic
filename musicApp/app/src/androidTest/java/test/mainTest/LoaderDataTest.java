@@ -15,8 +15,8 @@ import com.main.hubluzar.musicapp.loader.LoaderDataImpl;
 import java.util.ArrayList;
 
 import test.supportObject.CreaterTestReaderJSONData;
-import test.supportObject.TestAnimatorMainActivity;
-import test.supportObject.TestItemMusicGroup;
+import test.supportObject.AnimatorMainActivityTestSupport;
+import test.supportObject.ItemMusicGroupTestSupport;
 
 /**
  * Created by Агент on 19.04.2016.
@@ -25,7 +25,7 @@ public class LoaderDataTest extends AndroidTestCase {
     private Context context;
     private LoaderData loaderDataTest;
     private CreaterTestReaderJSONData createrTestReaderJSONData;
-    private TestItemMusicGroup testItemMusicGroup;
+    private ItemMusicGroupTestSupport itemMusicGroupTestSupport;
 
     @Override
     public void setUp() throws Exception {
@@ -33,12 +33,12 @@ public class LoaderDataTest extends AndroidTestCase {
         context = getContext();
         setContext(context);
         assertNotNull(context);
-        AnimatorMainActivity animatorMainActivityTest = new TestAnimatorMainActivity();
+        AnimatorMainActivity animatorMainActivityTest = new AnimatorMainActivityTestSupport();
         createrTestReaderJSONData = new CreaterTestReaderJSONData(context);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         loaderDataTest = new LoaderDataImpl(animatorMainActivityTest, context,
                 createrTestReaderJSONData.getSuccesReaderJSONData(),requestQueue);
-        testItemMusicGroup = new TestItemMusicGroup(context);
+        itemMusicGroupTestSupport = new ItemMusicGroupTestSupport(context);
     }
 
     @SmallTest
@@ -48,10 +48,10 @@ public class LoaderDataTest extends AndroidTestCase {
         ArrayList<ItemMusicGroup> listItemMusicGroup = new ArrayList<ItemMusicGroup>();
         loaderDataTest.extentionListItemsMusicGroup(listItemMusicGroup, 0);
         assertEquals(loaderDataTest.getSizeJSONArray(), createrTestReaderJSONData.getSizeOfExpextJSONArray());
-        ItemMusicGroup expextedItemMusicGroup = testItemMusicGroup.createTestItemMusicGroup();
+        ItemMusicGroup expextedItemMusicGroup = itemMusicGroupTestSupport.createTestItemMusicGroup();
         NetworkImageView networkImageView = new NetworkImageView(context);
         loaderDataTest.setImageUrl(networkImageView, expextedItemMusicGroup.getLinkSmallImage());
-        testItemMusicGroup.checkItemMusicGroup(listItemMusicGroup.get(1), expextedItemMusicGroup);
+        itemMusicGroupTestSupport.checkItemMusicGroup(listItemMusicGroup.get(1), expextedItemMusicGroup);
 
     }
 }

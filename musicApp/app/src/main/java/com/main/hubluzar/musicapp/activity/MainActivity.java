@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         settingViewElement();
         //Создаем общие объекты для работы приложения
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
         //loaderData Объект занимается закгрузкой данных, обработкой
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(this);

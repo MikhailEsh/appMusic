@@ -9,11 +9,11 @@ import com.main.hubluzar.musicapp.contentExec.ItemMusicGroupImpl;
 /**
  * Created by Агент on 20.04.2016.
  */
-public class TestItemMusicGroup {
+public class ItemMusicGroupTestSupport {
 
     private Context context;
 
-    public TestItemMusicGroup(Context context) {
+    public ItemMusicGroupTestSupport(Context context) {
         this.context = context;
     }
 

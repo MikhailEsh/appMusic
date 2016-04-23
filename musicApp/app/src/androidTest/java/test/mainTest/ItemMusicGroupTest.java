@@ -7,10 +7,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.main.hubluzar.musicapp.R;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 
-import java.util.ArrayList;
-
-import test.supportObject.CreaterTestReaderJSONData;
-import test.supportObject.TestItemMusicGroup;
+import test.supportObject.ItemMusicGroupTestSupport;
 
 /**
  * Created by Агент on 21.04.2016.
@@ -18,7 +15,7 @@ import test.supportObject.TestItemMusicGroup;
 public class ItemMusicGroupTest extends AndroidTestCase {
 
     private Context context;
-    TestItemMusicGroup testItemMusicGroup;
+    ItemMusicGroupTestSupport itemMusicGroupTestSupport;
     String generesString, tracksString, albumsString;
 
     @Override
@@ -27,7 +24,7 @@ public class ItemMusicGroupTest extends AndroidTestCase {
         context = getContext();
         setContext(context);
         assertNotNull(context);
-        testItemMusicGroup = new TestItemMusicGroup(context);
+        itemMusicGroupTestSupport = new ItemMusicGroupTestSupport(context);
         generesString = "pop rap rnb ";
         tracksString = "106" + " " + context.getString(R.string.list_item_textView_countSing);
         albumsString = "38" + " " + context.getString(R.string.list_item_textView_countAlbum);
@@ -35,7 +32,7 @@ public class ItemMusicGroupTest extends AndroidTestCase {
 
     @SmallTest
     public void testReaderJSONDataSucces() throws Exception  {
-        ItemMusicGroup itemMusicGroup = testItemMusicGroup.createTestItemMusicGroup();
+        ItemMusicGroup itemMusicGroup = itemMusicGroupTestSupport.createTestItemMusicGroup();
         assertEquals(itemMusicGroup.getGenresString(), generesString);
         assertEquals(itemMusicGroup.getTracksString(), tracksString);
         assertEquals(itemMusicGroup.getAlbumsString(), albumsString);

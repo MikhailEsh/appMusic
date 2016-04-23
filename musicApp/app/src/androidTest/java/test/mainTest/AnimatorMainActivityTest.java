@@ -1,25 +1,16 @@
 package test.mainTest;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.ActivityUnitTestCase;
-import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.main.hubluzar.musicapp.R;
 import com.main.hubluzar.musicapp.activity.MainActivity;
 import com.main.hubluzar.musicapp.base.AdapterListGroups;
 import com.main.hubluzar.musicapp.base.AnimatorMainActivity;
-import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.display.AnimatorMainActivityImpl;
 
-import java.util.ArrayList;
-
-import test.supportObject.AdapterListGroupsTest;
-import test.supportObject.CreaterTestReaderJSONData;
-import test.supportObject.TestItemMusicGroup;
+import test.supportObject.AdapterListGroupsTestSupport;
 
 /**
  * Created by Агент on 23.04.2016.
@@ -58,7 +49,7 @@ public class AnimatorMainActivityTest extends ActivityInstrumentationTestCase2<M
 
         animatorMainActivity.notifyAdapterData();
 
-        AdapterListGroups adapterListGroups = new AdapterListGroupsTest();
+        AdapterListGroups adapterListGroups = new AdapterListGroupsTestSupport();
 
         animatorMainActivity.setAdapter(adapterListGroups);
         animatorMainActivity.notifyAdapterData();

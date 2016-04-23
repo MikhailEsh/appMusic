@@ -9,7 +9,7 @@ import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import java.util.ArrayList;
 
 import test.supportObject.CreaterTestReaderJSONData;
-import test.supportObject.TestItemMusicGroup;
+import test.supportObject.ItemMusicGroupTestSupport;
 
 import  com.main.hubluzar.musicapp.base.ReaderJSONData;
 
@@ -21,7 +21,7 @@ public class ReaderJSONDataTest extends AndroidTestCase {
     private Context context;
     private CreaterTestReaderJSONData createrTestReaderJSONData;
     private ReaderJSONData readerJSONData;
-    private TestItemMusicGroup testItemMusicGroup;
+    private ItemMusicGroupTestSupport itemMusicGroupTestSupport;
 
     @Override
     public void setUp() throws Exception {
@@ -31,7 +31,7 @@ public class ReaderJSONDataTest extends AndroidTestCase {
         assertNotNull(context);
         createrTestReaderJSONData = new CreaterTestReaderJSONData(context);
         readerJSONData = createrTestReaderJSONData.getSuccesReaderJSONData();
-        testItemMusicGroup = new TestItemMusicGroup(context);
+        itemMusicGroupTestSupport = new ItemMusicGroupTestSupport(context);
     }
 
     @SmallTest
@@ -39,8 +39,8 @@ public class ReaderJSONDataTest extends AndroidTestCase {
         ArrayList<ItemMusicGroup> listItemMusicGroup = new ArrayList<ItemMusicGroup>();
         readerJSONData.extentionListItemsMusicGroup(listItemMusicGroup, 0);
         assertEquals(readerJSONData.getSizeJSONArray(), createrTestReaderJSONData.getSizeOfExpextJSONArray());
-        ItemMusicGroup expextedItemMusicGroup = testItemMusicGroup.createTestItemMusicGroup();
-        testItemMusicGroup.checkItemMusicGroup(listItemMusicGroup.get(1), expextedItemMusicGroup);
+        ItemMusicGroup expextedItemMusicGroup = itemMusicGroupTestSupport.createTestItemMusicGroup();
+        itemMusicGroupTestSupport.checkItemMusicGroup(listItemMusicGroup.get(1), expextedItemMusicGroup);
     }
 
 
