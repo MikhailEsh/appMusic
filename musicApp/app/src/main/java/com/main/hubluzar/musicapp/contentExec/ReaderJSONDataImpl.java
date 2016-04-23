@@ -1,10 +1,10 @@
-package com.main.hubluzar.musicapp.loader;
+package com.main.hubluzar.musicapp.contentExec;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
+import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.base.ReaderJSONData;
 
 import org.json.JSONArray;
@@ -83,7 +83,7 @@ public class ReaderJSONDataImpl implements ReaderJSONData  {
                 linkrBigImage = readParametrMusicGroupString(cover,  R.string.common_labelGroup_linkBigImage);
             } catch (JSONException e) {
             }
-            ItemMusicGroup currentItemMusicGroup = new ItemMusicGroup(name, description, link,
+            ItemMusicGroup currentItemMusicGroup = new ItemMusicGroupImpl(name, description, link,
                     linkSmallImage, linkrBigImage, albums, tracks, id, genres, context );
             return  currentItemMusicGroup;
 

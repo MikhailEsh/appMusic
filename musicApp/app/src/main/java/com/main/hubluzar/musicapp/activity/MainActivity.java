@@ -10,15 +10,16 @@ import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.main.hubluzar.musicapp.adapter.AdapterListGroups;
+import com.main.hubluzar.musicapp.base.AdapterListGroups;
+import com.main.hubluzar.musicapp.base.AnimatorMainActivity;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
+import com.main.hubluzar.musicapp.display.AdapterListGroupsImpl;
 import com.main.hubluzar.musicapp.R;
 import com.main.hubluzar.musicapp.base.LoaderData;
 import com.main.hubluzar.musicapp.base.ReaderJSONData;
+import com.main.hubluzar.musicapp.display.AnimatorMainActivityImpl;
 import com.main.hubluzar.musicapp.loader.LoaderDataImpl;
-import com.main.hubluzar.musicapp.loader.ReaderJSONDataImpl;
-
-import android.app.ProgressDialog;
+import com.main.hubluzar.musicapp.contentExec.ReaderJSONDataImpl;
 
 import java.util.ArrayList;
 
@@ -27,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     private ListView listView;
     private AdapterListGroups adapter;
-    private ReaderJSONData readerJSONDate;
-    private ProgressDialog progressDialog;
-    LoaderData loaderData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +37,20 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         //Создаем общие объекты для работы приложения
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         //readerJSONDate Объект парсит json
-        readerJSONDate = new ReaderJSONDataImpl(MainActivity.this);
+        ReaderJSONData readerJSONDate = new ReaderJSONDataImpl(MainActivity.this);
         //loaderData Объект занимается закгрузкой данных, обработкой
-        loaderData = new LoaderDataImpl(progressDialog, MainActivity.this, readerJSONDate, requestQueue);
-        loaderData.sendRequest(requestQueue);
-        adapter = new AdapterListGroups(this, new ArrayList<ItemMusicGroup>(), loaderData);
-        listView.setAdapter(adapter);
+        AnimatorMainActivity animator = new AnimatorMainActivityImpl(MainActivity.this);
+        LoaderData loaderData = new LoaderDataImpl(animator, MainActivity.this, readerJSONDate, requestQueue);
+        loaderData.sendRequest();
+        settingAdapter(animator, loaderData);
+    }
+
+    private void settingAdapter(AnimatorMainActivity animator, LoaderData loaderData)
+    {
+        AdapterListGroupsImpl adapterImpl = new AdapterListGroupsImpl(this, new ArrayList<ItemMusicGroup>(), loaderData);
+        listView.setAdapter(adapterImpl);
+        adapter = adapterImpl;
+        animator.setAdapter(adapter);
         listView.setOnItemClickListener(this);
     }
 
@@ -54,21 +60,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.toolbar_title_main);
         listView = (ListView) findViewById(R.id.listView);
-        settingProgressDialog();
     }
-
-    public void notifyAdapterData()
-    {
-        adapter.notifyDataSetChanged();
-    }
-
-    private void settingProgressDialog()
-    {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.process_dialog_loading));
-        progressDialog.setCancelable(false);
-    }
-
 
     //обработка нажатия на view в ListView, вызываем GroupMusicActivity
     @Override

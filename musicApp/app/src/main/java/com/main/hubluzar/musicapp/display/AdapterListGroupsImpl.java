@@ -1,4 +1,4 @@
-package com.main.hubluzar.musicapp.adapter;
+package com.main.hubluzar.musicapp.display;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.main.hubluzar.musicapp.base.AdapterListGroups;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.R;
 import com.main.hubluzar.musicapp.base.LoaderData;
@@ -18,14 +19,14 @@ import java.util.List;
 /**
  * Created by sbt-eshtokin-ml on 27.03.2016.
  */
-public class AdapterListGroups extends BaseAdapter {
+public class AdapterListGroupsImpl extends BaseAdapter implements AdapterListGroups {
 
     private List<ItemMusicGroup> listItemsMusicGroup;
     private LayoutInflater layoutInflater;
     private LoaderData loaderData;
     final private int heightForLoad;
 
-    public AdapterListGroups(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData) {
+    public AdapterListGroupsImpl(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData) {
         this.listItemsMusicGroup = listItemsMusicGroup;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.loaderData = loaderData;
@@ -41,8 +42,10 @@ public class AdapterListGroups extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         //При прокрутке смотрим нужно ли увечичвать список
-        if (checkNeedExtention(position))
+        if (checkNeedExtention(position)) {
             loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position);
+            notifyDataSetChanged();
+        }
         return this.listItemsMusicGroup.get(position);
     }
 
@@ -68,7 +71,7 @@ public class AdapterListGroups extends BaseAdapter {
     {
         if ( currentItemMusicGroup.getLinkSmallImage() != null) {
             NetworkImageView networkImageView = (NetworkImageView) view.findViewById(R.id.item_networkImageView_icon);
-            networkImageView.setImageUrl(currentItemMusicGroup.getLinkSmallImage(), loaderData.getImageLoader());
+            loaderData.setImageUrl(networkImageView, currentItemMusicGroup.getLinkSmallImage());
         }
     }
     //Заполняем данные в TextView

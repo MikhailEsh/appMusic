@@ -1,7 +1,7 @@
 package com.main.hubluzar.musicapp.base;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface LoaderData {
     public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position);
-    public int getSizeJSONArray();
-    public ImageLoader getImageLoader ();
-    public void sendRequest(RequestQueue requestQueue);
+    public Integer getSizeJSONArray();
+    public void sendRequest();
+    public void setImageUrl(NetworkImageView networkImageView, String url);
 }
