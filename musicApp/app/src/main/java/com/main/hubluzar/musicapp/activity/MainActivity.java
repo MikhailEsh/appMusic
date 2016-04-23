@@ -1,12 +1,14 @@
 package com.main.hubluzar.musicapp.activity;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -24,10 +26,12 @@ import com.main.hubluzar.musicapp.contentExec.ReaderJSONDataImpl;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ListView listView;
     private AdapterListGroups adapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    LoaderData loaderData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +40,21 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         settingViewElement();
         //Создаем общие объекты для работы приложения
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //loaderData Объект занимается закгрузкой данных, обработкой
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        AnimatorMainActivity animator = new AnimatorMainActivityImpl(MainActivity.this, mSwipeRefreshLayout);
         //readerJSONDate Объект парсит json
         ReaderJSONData readerJSONDate = new ReaderJSONDataImpl(MainActivity.this);
-        //loaderData Объект занимается закгрузкой данных, обработкой
-        AnimatorMainActivity animator = new AnimatorMainActivityImpl(MainActivity.this);
-        LoaderData loaderData = new LoaderDataImpl(animator, MainActivity.this, readerJSONDate, requestQueue);
+        loaderData = new LoaderDataImpl(animator, MainActivity.this, readerJSONDate, requestQueue);
         loaderData.sendRequest();
         settingAdapter(animator, loaderData);
     }
 
     private void settingAdapter(AnimatorMainActivity animator, LoaderData loaderData)
     {
+
         AdapterListGroupsImpl adapterImpl = new AdapterListGroupsImpl(this, new ArrayList<ItemMusicGroup>(), loaderData);
         listView.setAdapter(adapterImpl);
         adapter = adapterImpl;
@@ -77,5 +85,10 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         intent.putExtra(getString(R.string.common_labelGroup_name), currentGroupActivity.getName());
         intent.putExtra(getString(R.string.common_labelGroup_linkBigImage), currentGroupActivity.getLinkBigImage());
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        loaderData.sendRequest();
     }
 }

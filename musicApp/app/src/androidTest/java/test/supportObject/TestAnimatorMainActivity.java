@@ -11,16 +11,16 @@ public class TestAnimatorMainActivity implements AnimatorMainActivity {
     {
 
     }
-    public void showWaitingProgressDialog()
+    public void showWaitingDialogLoading()
     {
 
     }
-    public void dismissProgressDialog(){
+    public void finishedDialogLoadingSucces(){
 
     }
-    public void showErrorLoadNotice(){
 
-    }
+    public void finishedDialogLoadingError(){};
+
     public void notifyAdapterData(){
 
     }

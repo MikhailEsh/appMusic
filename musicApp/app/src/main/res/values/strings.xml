@@ -6,7 +6,8 @@
     <string name="icon_description">Иконка группы</string>
     <string name="group_imageView_icon">groupIcon</string>
     <string name="defaultValueParametr"> </string>
-    <string name="toast_errorDownload">Не удалось загрузить данные</string>
+    <string name="toast_error_download">Не удалось загрузить данные</string>
+    <string name="toast_succes_download">Данные обновились</string>
     <string name="common_labelGroup_id">id</string>
     <string name="common_labelGroup_name">name</string>
     <string name="common_labelGroup_description">description</string>
@@ -21,7 +22,8 @@
     <string name="list_item_textView_countAlbum">альбомов</string>
     <string name="list_item_textView_countSing">песен</string>
     <string name="item_textView_nameGroup">Название группы</string>
-    <string name="process_dialog_loading">Loading.....</string>
+    <string name="process_dialog_loading">Загрузка....</string>
+
     <string name="log_tag_error">ERROR</string>
     <string name="log_tag_info">INFO</string>
     <string name="log_unit_test_info">UNIT_TEST_INFO</string>

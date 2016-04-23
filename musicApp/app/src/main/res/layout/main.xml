@@ -6,10 +6,20 @@
     tools:context=".activity.MainActivity">
 
     <include layout="@layout/toolbar_main"/>
-    <ListView
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/toolbar_main"/>
+        android:layout_below="@+id/toolbar_main"
+        tools:context="com.shppandroid1.app.MainActivity">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/toolbar_main"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

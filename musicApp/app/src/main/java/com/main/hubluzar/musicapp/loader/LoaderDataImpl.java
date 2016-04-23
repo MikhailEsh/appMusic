@@ -64,40 +64,40 @@ public class LoaderDataImpl implements LoaderData {
     public void sendRequest()
     {
         CachingJsonArrayRequest jsonReq;
-        try {
             jsonReq = createJsonObjectRequest();
+        if (jsonReq == null ) return;
             jsonReq.setRetryPolicy(new DefaultRetryPolicy(timeWaitRequest,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(jsonReq);
-        } catch (JSONException e)
-        {
-            animator.showErrorLoadNotice();
-        }
     }
 //создаем объект запролса, CachingJsonArrayRequest - расширяет JsonArrayRequest, меняет политику кэширования
-    private CachingJsonArrayRequest createJsonObjectRequest() throws JSONException
+    private CachingJsonArrayRequest createJsonObjectRequest()
     {
-        animator.showWaitingProgressDialog();
-        CachingJsonArrayRequest reqArray = new CachingJsonArrayRequest(context.getString(R.string.url),
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(context.getString(R.string.log_tag_info), "Ответ получен");
-                        readerJSONDate.setJSONArray(response);
-                        animator.notifyAdapterData();
-                        animator.dismissProgressDialog();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(context.getString(R.string.log_tag_error), this.getClass().getSimpleName());
-                animator.dismissProgressDialog();
-                animator.showErrorLoadNotice();
-            }
-        });
-        reqArray.setShouldCache(Boolean.TRUE);
-        return reqArray;
+       try {
+           animator.showWaitingDialogLoading();
+           CachingJsonArrayRequest reqArray = new CachingJsonArrayRequest(context.getString(R.string.url),
+                   new Response.Listener<JSONArray>() {
+                       @Override
+                       public void onResponse(JSONArray response) {
+                           Log.d(context.getString(R.string.log_tag_info), "Ответ получен");
+                           readerJSONDate.setJSONArray(response);
+                           animator.notifyAdapterData();
+                           animator.finishedDialogLoadingSucces();
+                       }
+                   }, new Response.ErrorListener() {
+               @Override
+               public void onErrorResponse(VolleyError error) {
+                   Log.d(context.getString(R.string.log_tag_error), this.getClass().getSimpleName());
+                   animator.finishedDialogLoadingError();
+               }
+           });
+           reqArray.setShouldCache(Boolean.TRUE);
+           return reqArray;
+       } catch (JSONException e) {
+           animator.finishedDialogLoadingError();
+            return null;
+       }
     }
 
 }

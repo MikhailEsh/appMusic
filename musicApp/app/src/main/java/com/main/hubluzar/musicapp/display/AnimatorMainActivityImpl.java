@@ -2,6 +2,7 @@ package com.main.hubluzar.musicapp.display;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
 
 import com.main.hubluzar.musicapp.R;
@@ -15,12 +16,15 @@ public class AnimatorMainActivityImpl implements AnimatorMainActivity {
     private ProgressDialog progressDialog;
     Context context;
     private AdapterListGroups adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public AnimatorMainActivityImpl(Context context)  {
-        this.progressDialog =  new ProgressDialog(context);
+
+    public AnimatorMainActivityImpl(Context context, SwipeRefreshLayout mSwipeRefreshLayout)  {
         this.context = context;
-        this.adapter = null;
+        this.progressDialog =  new ProgressDialog(context);
         settingProgressDialog();
+        this.adapter = null;
+        this.mSwipeRefreshLayout = mSwipeRefreshLayout;
     }
 
     public void setAdapter(AdapterListGroups adapter)
@@ -28,25 +32,37 @@ public class AnimatorMainActivityImpl implements AnimatorMainActivity {
         this.adapter = adapter;
     }
 
-    public void showWaitingProgressDialog()
+    public void showWaitingDialogLoading()
     {
         progressDialog.show();
+        mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1);
     }
 
-    public void dismissProgressDialog()
+    public void finishedDialogLoadingSucces()
     {
+        mSwipeRefreshLayout.setRefreshing(false);
         progressDialog.dismiss();
+        Toast.makeText(context, R.string.toast_succes_download, Toast.LENGTH_SHORT).show();
     }
 
-    public void showErrorLoadNotice()
+    public void finishedDialogLoadingError()
     {
-        Toast errorToast = Toast.makeText(context, context.getString(R.string.toast_errorDownload), Toast.LENGTH_LONG);
-        errorToast.show();
+        mSwipeRefreshLayout.setRefreshing(false);
+        progressDialog.dismiss();
+        Toast.makeText(context, R.string.toast_error_download, Toast.LENGTH_SHORT).show();
     }
+
 
     public void notifyAdapterData()
     {
-        adapter.notifyDataSetChanged();
+        if ( this.adapter != null)
+            this.adapter.notifyDataSetChanged();
     }
 
     private void settingProgressDialog()

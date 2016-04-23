@@ -6,8 +6,8 @@ package com.main.hubluzar.musicapp.base;
  */
 public interface AnimatorMainActivity {
     public void setAdapter(AdapterListGroups adapter);
-    public void showWaitingProgressDialog();
-    public void dismissProgressDialog();
-    public void showErrorLoadNotice();
+    public void showWaitingDialogLoading();
+    public void finishedDialogLoadingSucces();
+    public void finishedDialogLoadingError();
     public void notifyAdapterData();
 }

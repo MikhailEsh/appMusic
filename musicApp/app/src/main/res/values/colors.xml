@@ -12,4 +12,8 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <color name="grayText">#9c9c9c</color>
+    <color name="blue">#72c6fa</color>
+    <color name="green">#71fc52</color>
+    <color name="yellow">#fff133</color>
+    <color name="red">#ff4848</color>
 </resources>
