@@ -1,7 +1,7 @@
 <resources>
     <integer name="sizeOfListView">10</integer>
     <integer name="timeWaitRequest">5000</integer>
-    <string name="app_name">appMusic</string>
+    <string name="app_name">Звездный гид</string>
     <string name="toolbar_title_main">Исполнители</string>
     <string name="icon_description">Иконка группы</string>
     <string name="group_imageView_icon">groupIcon</string>
