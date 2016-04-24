@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     private void settingAdapter(AnimatorMainActivity animator, LoaderData loaderData)
     {
-
-        AdapterListGroupsImpl adapterImpl = new AdapterListGroupsImpl(this, new ArrayList<ItemMusicGroup>(), loaderData);
+        AdapterListGroupsImpl adapterImpl = new AdapterListGroupsImpl(this, new ArrayList<ItemMusicGroup>(),
+                loaderData, this.getResources().getInteger(R.integer.sizeOfListView));
         listView.setAdapter(adapterImpl);
         adapter = adapterImpl;
         animator.setAdapter(adapter);

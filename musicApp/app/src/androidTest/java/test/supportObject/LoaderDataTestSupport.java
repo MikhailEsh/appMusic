@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class LoaderDataTestSupport implements LoaderData {
     @Override
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position, int sizeOfExtention) {
 
     }
 

@@ -1,4 +1,4 @@
-package test.mainTest;
+package test.mainTest.androidTestCase;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
@@ -10,11 +10,12 @@ import com.android.volley.toolbox.Volley;
 import com.main.hubluzar.musicapp.base.AnimatorMainActivity;
 import com.main.hubluzar.musicapp.base.ItemMusicGroup;
 import com.main.hubluzar.musicapp.base.LoaderData;
+import com.main.hubluzar.musicapp.base.ReaderJSONData;
 import com.main.hubluzar.musicapp.loader.LoaderDataImpl;
 
 import java.util.ArrayList;
 
-import test.supportObject.CreaterTestReaderJSONData;
+import test.supportObject.ReaderJSONDataTestSupport;
 import test.supportObject.AnimatorMainActivityTestSupport;
 import test.supportObject.ItemMusicGroupTestSupport;
 
@@ -24,7 +25,7 @@ import test.supportObject.ItemMusicGroupTestSupport;
 public class LoaderDataTest extends AndroidTestCase {
     private Context context;
     private LoaderData loaderDataTest;
-    private CreaterTestReaderJSONData createrTestReaderJSONData;
+    private Integer sizeJSONArrayTest;
     private ItemMusicGroupTestSupport itemMusicGroupTestSupport;
 
     @Override
@@ -33,25 +34,29 @@ public class LoaderDataTest extends AndroidTestCase {
         context = getContext();
         setContext(context);
         assertNotNull(context);
+        createTestData();
+    }
+
+    private void createTestData()
+    {
+        //готовим данные для тестов
         AnimatorMainActivity animatorMainActivityTest = new AnimatorMainActivityTestSupport();
-        createrTestReaderJSONData = new CreaterTestReaderJSONData(context);
+        ReaderJSONDataTestSupport readerJSONDataTestSupport = new ReaderJSONDataTestSupport(context);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+        ReaderJSONData readerJSONDataTest = readerJSONDataTestSupport.getReaderJSONDataTest();
+        sizeJSONArrayTest = readerJSONDataTest.getSizeJSONArray();
         loaderDataTest = new LoaderDataImpl(animatorMainActivityTest, context,
-                createrTestReaderJSONData.getSuccesReaderJSONData(),requestQueue);
+                readerJSONDataTest ,requestQueue);
         itemMusicGroupTestSupport = new ItemMusicGroupTestSupport(context);
     }
 
+
     @SmallTest
     public void testLoaderData() throws Exception  {
-        assertEquals(loaderDataTest.getSizeJSONArray(), createrTestReaderJSONData.getSizeOfExpextJSONArray());
         loaderDataTest.sendRequest();
-        ArrayList<ItemMusicGroup> listItemMusicGroup = new ArrayList<ItemMusicGroup>();
-        loaderDataTest.extentionListItemsMusicGroup(listItemMusicGroup, 0);
-        assertEquals(loaderDataTest.getSizeJSONArray(), createrTestReaderJSONData.getSizeOfExpextJSONArray());
-        ItemMusicGroup expextedItemMusicGroup = itemMusicGroupTestSupport.createTestItemMusicGroup();
+        ItemMusicGroup expextedItemMusicGroup = itemMusicGroupTestSupport.getFillItemMusicGroupTest();
         NetworkImageView networkImageView = new NetworkImageView(context);
         loaderDataTest.setImageUrl(networkImageView, expextedItemMusicGroup.getLinkSmallImage());
-        itemMusicGroupTestSupport.checkItemMusicGroup(listItemMusicGroup.get(1), expextedItemMusicGroup);
-
     }
+
 }

@@ -43,9 +43,9 @@ public class LoaderDataImpl implements LoaderData {
     }
 
     //Функция подгружает данные в список( сделано для того чтобы не парстиь весь Json подгружать данные по мере надобности
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position, int sizeOfExtention) {
         if (readerJSONDate == null ) return;
-        readerJSONDate.extentionListItemsMusicGroup(listItemsMusicGroup, position);
+        readerJSONDate.extentionListItemsMusicGroup(listItemsMusicGroup, position, sizeOfExtention);
     }
 
     public Integer getSizeJSONArray()

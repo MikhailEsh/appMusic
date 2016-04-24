@@ -25,17 +25,19 @@ public class AdapterListGroupsImpl extends BaseAdapter implements AdapterListGro
     private LayoutInflater layoutInflater;
     private LoaderData loaderData;
     final private int heightForLoad;
+    final private int sizeOfExtention;
 
-    public AdapterListGroupsImpl(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData) {
+    public AdapterListGroupsImpl(Context context, List<ItemMusicGroup> listItemsMusicGroup, LoaderData loaderData, Integer sizeOfExtention) {
         this.listItemsMusicGroup = listItemsMusicGroup;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.loaderData = loaderData;
-        this.heightForLoad = context.getResources().getInteger(R.integer.sizeOfListView) / 2;//Параметр который определяет когда нужно подгружать данные в список
+        this.sizeOfExtention = sizeOfExtention;//Параметр который определяет когда нужно подгружать данные в список
+        this.heightForLoad = sizeOfExtention / 2;//Параметр который определяет когда нужно подгружать данные в список
     }
 
     @Override
     public int getCount() {
-        if ( this.listItemsMusicGroup.isEmpty() ) loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, 0);//Если список пустой, подгружаем первые данне
+        if ( this.listItemsMusicGroup.isEmpty() ) loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, 0, sizeOfExtention);//Если список пустой, подгружаем первые данне
         return this.listItemsMusicGroup.size();
     }
 
@@ -43,7 +45,7 @@ public class AdapterListGroupsImpl extends BaseAdapter implements AdapterListGro
     public Object getItem(int position) {
         //При прокрутке смотрим нужно ли увечичвать список
         if (checkNeedExtention(position)) {
-            loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position);
+            loaderData.extentionListItemsMusicGroup(listItemsMusicGroup, position, sizeOfExtention);
             notifyDataSetChanged();
         }
         return this.listItemsMusicGroup.get(position);

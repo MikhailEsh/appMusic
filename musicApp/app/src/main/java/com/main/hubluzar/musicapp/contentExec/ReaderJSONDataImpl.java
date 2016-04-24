@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class ReaderJSONDataImpl implements ReaderJSONData  {
 
-    final private Integer sizeOfListView;
     private JSONArray jSONArray;
     private Context context;
 
@@ -27,7 +26,6 @@ public class ReaderJSONDataImpl implements ReaderJSONData  {
     public ReaderJSONDataImpl(Context context) {
         this.jSONArray = null;
         this.context = context;
-        this.sizeOfListView = context.getResources().getInteger(R.integer.sizeOfListView);
     }
 
     public Integer getSizeJSONArray() {
@@ -40,17 +38,17 @@ public class ReaderJSONDataImpl implements ReaderJSONData  {
     }
 
     //Функция подгружает данные в список( сделано для того чтобы не парстиь весь Json подгружать данные по мере надобности
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position) {
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position, int sizeOfExtention) {
         if (this.jSONArray == null ) return;
-        readJSONMusicGroup(listItemsMusicGroup, position);
+        readJSONMusicGroup(listItemsMusicGroup, position, sizeOfExtention);
     }
 
 
 
     //Парсим один jSONArray в зависимости от настроенного размера подгружаеммых данных
-    private List<ItemMusicGroup> readJSONMusicGroup(List<ItemMusicGroup> listItemMusicGroup, int position)
+    private List<ItemMusicGroup> readJSONMusicGroup(List<ItemMusicGroup> listItemMusicGroup, int position, int sizeOfRead)
     {
-        for (int i = position; i < position + sizeOfListView; i++) {
+        for (int i = position; i < position + sizeOfRead; i++) {
             try {
                 JSONObject joItemGroup = jSONArray.getJSONObject(i);
                 ItemMusicGroup currentMusicGroup = readItemMusicGroup(joItemGroup);
@@ -90,8 +88,8 @@ public class ReaderJSONDataImpl implements ReaderJSONData  {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(context.getString(R.string.log_tag_error), this.getClass().getSimpleName() + joItemGroup.toString());
+            return null;
         }
-        return null;
     }
 
 

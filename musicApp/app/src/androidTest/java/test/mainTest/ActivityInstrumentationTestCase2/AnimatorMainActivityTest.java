@@ -1,4 +1,4 @@
-package test.mainTest;
+package test.mainTest.ActivityInstrumentationTestCase2;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.test.ActivityInstrumentationTestCase2;

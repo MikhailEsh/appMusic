@@ -12,12 +12,39 @@ import com.main.hubluzar.musicapp.contentExec.ItemMusicGroupImpl;
 public class ItemMusicGroupTestSupport {
 
     private Context context;
+    private Integer positionFillItemMusicGroupTest;
+    private Integer positionEmptyItemMusicGroupTest;
+
+    public Integer getPositionFillItemMusicGroupTest() {
+        return positionFillItemMusicGroupTest;
+    }
+
+    public Integer getPositionEmptyItemMusicGroupTest() {
+        return positionEmptyItemMusicGroupTest;
+    }
 
     public ItemMusicGroupTestSupport(Context context) {
         this.context = context;
+        positionFillItemMusicGroupTest = 3;
+        positionEmptyItemMusicGroupTest = 0;
     }
 
-    public ItemMusicGroupImpl createTestItemMusicGroup()
+    public ItemMusicGroupImpl getEmptyItemMusicGroupTest()
+    {
+        String name = "Tove Lo";
+        Integer id = null;
+        String[] testGenres = null;
+        Integer tracks = null;
+        String link = null;
+        Integer albums = null;
+        String testDescription = null;
+        String linkSmallImage = null;
+        String linkBigImage = null;
+        ItemMusicGroupImpl testItemMusicGroup = new ItemMusicGroupImpl(name, testDescription, link, linkSmallImage, linkBigImage, albums, tracks, id, testGenres, context);
+        return testItemMusicGroup;
+    }
+
+    public ItemMusicGroupImpl getFillItemMusicGroupTest()
     {
         String name = "Jay Sean";
         Integer id = 100500;
@@ -35,7 +62,7 @@ public class ItemMusicGroupTestSupport {
         return testItemMusicGroup;
     }
 
-    public void checkItemMusicGroup(ItemMusicGroup currentItemMusicGroupList, ItemMusicGroup expextedItemMusicGroup) throws Exception
+    public void assertEqualsItemMusicGroup(ItemMusicGroup currentItemMusicGroupList, ItemMusicGroup expextedItemMusicGroup) throws Exception
     {
         AndroidTestCase.assertEquals(currentItemMusicGroupList.getName(), expextedItemMusicGroup.getName());
         AndroidTestCase.assertEquals(currentItemMusicGroupList.getDescription(), expextedItemMusicGroup.getDescription());
@@ -47,6 +74,7 @@ public class ItemMusicGroupTestSupport {
         AndroidTestCase.assertEquals(currentItemMusicGroupList.getId(), expextedItemMusicGroup.getId());
         String[] currentGenres = currentItemMusicGroupList.getGenres();
         String[] expextedGenres = expextedItemMusicGroup.getGenres();
+        if ( currentGenres == null && expextedGenres == null) return;
         AndroidTestCase.assertEquals(currentGenres.length, expextedGenres.length);
         for ( int i = 0 ; i < currentGenres.length; i++ )
             AndroidTestCase.assertEquals(currentGenres[i], expextedGenres[i]);

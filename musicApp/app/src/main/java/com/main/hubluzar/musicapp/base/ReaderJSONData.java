@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Агент on 17.04.2016.
  */
 public interface ReaderJSONData {
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position);
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position, int sizeOfExtention);
     public Integer getSizeJSONArray();
     public void setJSONArray(JSONArray jSONArray);
 }

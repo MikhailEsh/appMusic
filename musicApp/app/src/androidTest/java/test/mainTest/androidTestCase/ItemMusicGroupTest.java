@@ -1,4 +1,4 @@
-package test.mainTest;
+package test.mainTest.androidTestCase;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
@@ -24,6 +24,11 @@ public class ItemMusicGroupTest extends AndroidTestCase {
         context = getContext();
         setContext(context);
         assertNotNull(context);
+        createTestData();
+    }
+//Создаем необходимы дынные для тестирования
+    private void createTestData()
+    {
         itemMusicGroupTestSupport = new ItemMusicGroupTestSupport(context);
         generesString = "pop rap rnb ";
         tracksString = "106" + " " + context.getString(R.string.list_item_textView_countSing);
@@ -32,7 +37,8 @@ public class ItemMusicGroupTest extends AndroidTestCase {
 
     @SmallTest
     public void testReaderJSONDataSucces() throws Exception  {
-        ItemMusicGroup itemMusicGroup = itemMusicGroupTestSupport.createTestItemMusicGroup();
+        ItemMusicGroup itemMusicGroup = itemMusicGroupTestSupport.getFillItemMusicGroupTest();
+        //Тестируем функции которые возвращают склееные данные для View
         assertEquals(itemMusicGroup.getGenresString(), generesString);
         assertEquals(itemMusicGroup.getTracksString(), tracksString);
         assertEquals(itemMusicGroup.getAlbumsString(), albumsString);

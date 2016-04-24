@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Агент on 17.04.2016.
  */
 public interface LoaderData {
-    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position);
+    public void extentionListItemsMusicGroup(List<ItemMusicGroup> listItemsMusicGroup, int position, int sizeOfExtention);
     public Integer getSizeJSONArray();
     public void sendRequest();
     public void setImageUrl(NetworkImageView networkImageView, String url);
